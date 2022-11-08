@@ -12,9 +12,13 @@
 #include "funciones.h"
 #include "otros.h"
 
+// Variables globales
+
+pthread_t *tid;
+
 int main(int argc, char *argv[]) {
     // Variables iniciales
-    int option;
+    int option, i;
 	char nombreEntrada[255];
 	char nombreSalida[255];
 	int anioInicio = 0;
@@ -98,6 +102,51 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-    printf("%s %s %d %f %d %d %d\n", nombreEntrada, nombreSalida, anioInicio, precioMinimo, hebras, chunk, bandera);
+    // Se asigna memoria al arreglo de los id de las hebras
+    tid = (pthread_t *)malloc(sizeof(pthread_t) * hebras);
+
+    // Se abre el archivo de entrada
+    archivoEntrada = fopen(nombreEntrada, "r");
+    if(archivoEntrada == NULL){
+        printf("Error: No se pudo abrir el archivo de entrada.\n");
+        return 0;
+    }
+
+    // Se abre el lock
+    if(pthread_mutex_init(&lock, NULL) != 0){
+        printf("Error: No se pudo crear el mutex.\n");
+        return 0;
+    }
+
+    // Se crean las hebras
+    i = 0;
+    while(!feof(archivoEntrada)){
+        if(pthread_create(&(tid[i]), NULL, funcionHilo, (void*)&chunk) != 0){
+            printf("Error: No se pudo crear la hebra.\n");
+            return 0;
+        }
+
+    }
+
+    
+    // Se espera a que terminen las hebras
+    for(i = 0; i < hebras; i++){
+        if(pthread_join(tid[i], NULL) != 0){
+            printf("Error: No se pudo unir la hebra.\n");
+            return 0;
+        }
+    }
+
+    // Se cierra el archivo de entrada
+    fclose(archivoEntrada);
+
+    // Se cierra el lock
+    pthread_mutex_destroy(&lock);
+
+	escribirArchivo(nombreSalida, anioInicio, precioMinimo, bandera);       
+
+    // Se libera memoria
+    free(tid);
+    free(anios);
     return 0;
 }
