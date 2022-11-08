@@ -1,21 +1,17 @@
 #include "funciones.h"
+
+//Variables globales
 extern int n;
 extern pthread_mutex_t lock;
 extern FILE *archivoEntrada;
-extern int contador;
 extern anio *aniosStruct;
-extern int chunk;
-//extern anio aniosStruct[25];
 extern int cantAnios;
-extern int contadorAnios;
-//extern char linea[500];
+extern int chunk;
+extern float precioMinimo;
 
-void funPrint(){
-    printf("n: %d\n", n);
-    n=n+1;
-}
-
-
+// Función que agrega un año a un arreglo de años
+// Entrada: año
+// Salida: nada, pues se uiiliza un arreglo global
 anio *agregarAniosFinales( anio anioAgregado){
     anio* aux = (anio*)malloc(sizeof(anio)*(cantAnios+1));
     for(int i = 0; i <cantAnios; i++){
@@ -64,11 +60,14 @@ int transformarStringABoolLinus(char *cadena)
 
 }
 
+// Función que transforma una línea de un archivo a un struct juego
+// Entrada: string
+// Salida: struct juego
 juego lineaToJuego(char *linea){
     // Variables iniciales
     juego juego;
     char prox[255], gratis[255], win[255], mac[255], lin[255];
-    //printf("%s", linea);
+
     // Separar la linea
     sscanf(linea, "%d,%[^,],%d,%f,%[^,],%d,%[^,],%[^,],%[^,],%[^,]", 
     &juego.id, juego.nombre, &juego.restriccion, &juego.precio, prox, &juego.fecha,
@@ -84,7 +83,9 @@ juego lineaToJuego(char *linea){
     return juego;
 }
 
-
+//Función que revisa si un año está en un arreglo de años
+//Entrada: arreglo de años, año a buscar, tamaño del arreglo
+//Salida: posición en donde está el año, -1 si no está
 int juegoInAnios(juego juego){
     for(int i = 0; i < cantAnios; i++){
         if(juego.fecha == aniosStruct[i].anio){
@@ -94,8 +95,40 @@ int juegoInAnios(juego juego){
     return -1;
 }
 
+//Función que crea un año vacío a partir de un juego
+//Entrada: juego
+//Salida: año
+anio crearAnioVacio(juego juego){
+    anio nuevoAnio;
+    nuevoAnio.anio = juego.fecha;
+    nuevoAnio.cantidadJuegos = 0;
+    strcpy(nuevoAnio.nombreCaro,"No tiene");
+    nuevoAnio.caro = 0;
+    strcpy(nuevoAnio.nombreBarato,"No tiene");
+    nuevoAnio.barato = -1;
+    nuevoAnio.sumaPrecios = 0;
+    nuevoAnio.cantidadWindows = 0;
+    nuevoAnio.cantidadMac = 0;
+    nuevoAnio.cantidadLinux = 0;
+    //Si el juego es gratis
+    if(juego.gratis == 1){
+        nuevoAnio.cantidadJuegosGratis=1;
+        strcpy(nuevoAnio.juegosGratis, juego.nombre);
+        strcat(nuevoAnio.juegosGratis, "\n");
+        return nuevoAnio;
+    }
+    //Si el juego no es gratis
+    strcpy(nuevoAnio.juegosGratis, "");
+    nuevoAnio.cantidadJuegosGratis = 0;
+    return nuevoAnio;
+}
+
+//Función que crea un año a partir de un juego
+//Entrada: juego
+//Salida: año
 anio crearAnio(juego juego){
     anio nuevoAnio;
+    //se crea el año
     nuevoAnio.anio = juego.fecha;
     nuevoAnio.cantidadJuegos = 1;
     strcpy(nuevoAnio.nombreCaro,juego.nombre);
@@ -106,29 +139,49 @@ anio crearAnio(juego juego){
     nuevoAnio.cantidadWindows = juego.win;
     nuevoAnio.cantidadMac = juego.mac;
     nuevoAnio.cantidadLinux = juego.lin;
+
+    //Si el juego es gratis
     if(juego.gratis == 1){
         nuevoAnio.cantidadJuegosGratis=1;
         strcpy(nuevoAnio.juegosGratis, juego.nombre);
         strcat(nuevoAnio.juegosGratis, "\n");
         return nuevoAnio;
     }
+    //Si el juego no es gratis
     strcpy(nuevoAnio.juegosGratis, "");
     nuevoAnio.cantidadJuegosGratis = 0;
     return nuevoAnio;
 }
 
-//Descripción: Función que junta lun año calculado por un worker y los guarda en un array con los datos combinados
-//Entrada: arreglo de años, año, lista de posibles años, lista de si el año ya está dentro del array de años, cantidad de años
-//Salida: arreglo de años con el año agregado
+//Descripción: Función que junta los años a partir de un juego y el arreglo de años global
+//Entrada: juego a combinar con los años actuales
+//Salida: nada pues se trabaja sobre arreglo de años con el año agregado
 void juntarAnios(juego juego){
     int k = juegoInAnios(juego);
-    //printf("k: %d", k);
+    //Si el año del juego no está en el arreglo de años
     if(k == -1){
-        anio anioAgregar = crearAnio(juego);
+        anio anioAgregar;
+        // Si el precio del juego no supera al precio minimo
+        if(precioMinimo > juego.precio){
+            // Se crea el año sin la informacion del juego
+            anioAgregar = crearAnioVacio(juego);
+        }else{
+            // Sino, se crea el año con la informacion del juego.
+            anioAgregar = crearAnio(juego);
+        }
+        // Se agrega el año creado a la lista de años
         aniosStruct = agregarAniosFinales(anioAgregar);
-        //aniosStruct[cantAnios] = anioAgregar;
-        //cantAnios++;
+
     }else{
+        //Si el año del juego está en el arreglo de años
+        if(juego.gratis == 1){
+            aniosStruct[k].cantidadJuegosGratis++;
+            strcat(aniosStruct[k].juegosGratis, juego.nombre);
+            strcat(aniosStruct[k].juegosGratis, "\n");
+        }
+        if(precioMinimo > juego.precio){
+            return;
+        }
         aniosStruct[k].cantidadJuegos++;
         aniosStruct[k].sumaPrecios += juego.precio;
         aniosStruct[k].cantidadWindows += juego.win;
@@ -138,74 +191,32 @@ void juntarAnios(juego juego){
             aniosStruct[k].caro = juego.precio;
             strcpy(aniosStruct[k].nombreCaro, juego.nombre);
         }
-        if(juego.precio < aniosStruct[k].barato){
+        if(juego.precio < aniosStruct[k].barato || aniosStruct[k].barato == -1){
             aniosStruct[k].barato = juego.precio;
             strcpy(aniosStruct[k].nombreBarato, juego.nombre);
         }
-        if(juego.gratis == 1){
-            aniosStruct[k].cantidadJuegosGratis++;
-            strcat(aniosStruct[k].juegosGratis, juego.nombre);
-            strcat(aniosStruct[k].juegosGratis, "\n");
-        }
     }
-    /* //Si el año ya está dentro del array, se mezclan los datos para que concuerden con lo solicitado
-    if(anios[i]==anio.anio && anioDentro[i]==1){
-        aniosFinal[i].cantidadJuegos += anio.cantidadJuegos;
-        aniosFinal[i].sumaPrecios += anio.sumaPrecios;
-        aniosFinal[i].cantidadWindows += anio.cantidadWindows;
-        aniosFinal[i].cantidadMac += anio.cantidadMac;
-        aniosFinal[i].cantidadLinux += anio.cantidadLinux;
-
-        //Los juegos gratis se van sumando
-        if(aniosFinal[i].cantidadJuegosGratis == 0 && anio.cantidadJuegosGratis > 0){
-            strcpy(aniosFinal[i].juegosGratis, anio.juegosGratis);
-            aniosFinal[i].cantidadJuegosGratis += anio.cantidadJuegosGratis;
-        }else if(aniosFinal[i].cantidadJuegosGratis > 0 && anio.cantidadJuegosGratis > 0){
-            strcat(aniosFinal[i].juegosGratis, anio.juegosGratis);
-            aniosFinal[i].cantidadJuegosGratis += anio.cantidadJuegosGratis;
-        }
-
-        //Se verifica el juego más caro del año
-        if(anio.caro > aniosFinal[i].caro){
-            aniosFinal[i].caro = anio.caro;
-            strcpy(aniosFinal[i].nombreCaro, anio.nombreCaro);
-        }
-
-        //Se verifica el juego más barato del año
-        if((anio.barato < aniosFinal[i].barato && anio.barato != -1) || aniosFinal[i].barato == -1){
-            aniosFinal[i].barato = anio.barato;
-            strcpy(aniosFinal[i].nombreBarato, anio.nombreBarato);
-        }
-        return aniosFinal;
-    } 
-return aniosFinal;*/
 }
 
-//Posible error en la función por printf de n
+//Función que es la función principal de la hebraa la que se llama, lee el archivo y crea los años
+//Entrada: nada, se trabaja con variables globales
+//Salida: nada, se trabaja con variables globales
 void *funcionHilo(void *arg) {
+    // Se bloquea el lock
     if(pthread_mutex_lock(&lock) != 0){
         printf("Error: No se puede bloquear el mutex\n");
         exit(1);
     }
-    contador++;
+    // Variables para los calculos
     int i = 0;
     char linea[500];
     juego juego;
     while(i<chunk && fgets(linea, 500, archivoEntrada) != NULL){
-        /* if(i == *chunk){
-            break;
-        } */
-        //printf("%s", linea);
-        contadorAnios++;
         juego = lineaToJuego(linea);
         juntarAnios(juego);
-        /* printf("%d %s %d %f %d %d %d %d %d %d\n", juego.id, juego.nombre,
-        juego.restriccion, juego.precio, juego.proximamente, juego.fecha,
-        juego.gratis, juego.win, juego.mac, juego.lin);  */
         i++; 
     }
-    //printf("i: %d, contador: %d\n", i,contador);
-    //funPrint();
+    // Se desbloquea el lock
     if(pthread_mutex_unlock(&lock) != 0){
         printf("Error: No se puede desbloquear el mutex\n");
         exit(1);
@@ -213,6 +224,10 @@ void *funcionHilo(void *arg) {
     return NULL;
 }
 
+
+//Función que selecciona las lineas a partir del año de inicio
+//Entrada: año de inicio
+//Salida: indice de la linea a partir de la cual se debe empezar a escribir
 int buscarIndice(int anioInicio){
     if(anioInicio <= aniosStruct[0].anio){return 0;}
     for(int i=0;i<cantAnios;i++){
@@ -223,7 +238,12 @@ int buscarIndice(int anioInicio){
     return -1;
 }
 
+
+//Función que escribe el archivo de salida
+//Entrada: nombre del archivo, año de inicio, bandera de si es que se imprime o no
+//Salida: nada, se escribe dentro de un archivo
 void escribirArchivo(char * nombreSalida, int anioInicio, int bandera){
+    //se inicia la escritura del archivo
     char lineasAEscribir[100000]="";
     char temporal[5000];
     FILE *archivoSalida = fopen(nombreSalida, "w");
@@ -231,22 +251,31 @@ void escribirArchivo(char * nombreSalida, int anioInicio, int bandera){
         printf("Error: No se pudo abrir el archivo de salida.\n");
         return;
     }
+    //Se busca el índice a partir de la bandera de año de inicio
     int indice = buscarIndice(anioInicio);
     if(indice == -1){
         printf("No se encontro el anio %d en el archivo", anioInicio);
         return;
     }
+    //Se escriben los datos iniciales para cambiarse después con los datos del arreglo de años
     for(int i=indice;i<cantAnios;i++){
-        sprintf(temporal, "Año: %d\nJuego más caro: %s\nJuego más barato: %s\nPromedio de precios: %f\nWindows: %d Mac: %d Linux: %d\nJuegos gratis:\n %s\n\n",
+        if(aniosStruct[i].cantidadJuegos == 0){
+            aniosStruct[i].cantidadJuegos = 1;
+            aniosStruct[i].barato = 0;
+        }
+        sprintf(temporal, "Año: %d\nJuego más caro: %s\nJuego más barato: %s\nPromedio de precios: %f\nWindows: %f Mac: %f Linux: %f\nJuegos gratis:\n %s\n\n",
         aniosStruct[i].anio, aniosStruct[i].nombreCaro, aniosStruct[i].nombreBarato, aniosStruct[i].sumaPrecios/aniosStruct[i].cantidadJuegos,
-        (aniosStruct[i].cantidadWindows*100)/aniosStruct[i].cantidadJuegos, (aniosStruct[i].cantidadMac*100)/aniosStruct[i].cantidadJuegos, 
-        (aniosStruct[i].cantidadLinux*100)/aniosStruct[i].cantidadJuegos, aniosStruct[i].juegosGratis);
+        ((float)aniosStruct[i].cantidadWindows/(float)aniosStruct[i].cantidadJuegos)*100, ((float)aniosStruct[i].cantidadMac/(float)aniosStruct[i].cantidadJuegos)*100, 
+        ((float)aniosStruct[i].cantidadLinux/(float)aniosStruct[i].cantidadJuegos)*100, aniosStruct[i].juegosGratis);
         strcat(lineasAEscribir, temporal);
     }
+
+    //si es que se imprime
     if(bandera == 1){
         printf("%s", lineasAEscribir);
     }
 
+    // Se escribe en el archivo final
     fprintf(archivoSalida,"%s",lineasAEscribir);
     fclose(archivoSalida);
 }

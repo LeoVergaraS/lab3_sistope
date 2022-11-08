@@ -1,24 +1,8 @@
-Año: 1998
-Juego más caro: Half-Life
-Juego más barato: Half-Life
-Promedio de precios: 5.500000
-Windows: 100 Mac: 100 Linux: 100
-Juegos gratis:
- 
-
-Año: 1999
-Juego más caro: Team Fortress Classic
-Juego más barato: Team Fortress Classic
-Promedio de precios: 3.000000
-Windows: 100 Mac: 100 Linux: 100
-Juegos gratis:
- 
-
 Año: 2000
 Juego más caro: Counter-Strike
 Juego más barato: Ricochet
 Promedio de precios: 4.250000
-Windows: 100 Mac: 100 Linux: 100
+Windows: 100.000000 Mac: 100.000000 Linux: 100.000000
 Juegos gratis:
  
 
@@ -26,7 +10,7 @@ Año: 2001
 Juego más caro: Deathmatch Classic
 Juego más barato: Deathmatch Classic
 Promedio de precios: 3.000000
-Windows: 100 Mac: 100 Linux: 100
+Windows: 100.000000 Mac: 100.000000 Linux: 100.000000
 Juegos gratis:
  
 
@@ -34,7 +18,7 @@ Año: 2002
 Juego más caro: Mafia
 Juego más barato: Mafia
 Promedio de precios: 12.490000
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -42,7 +26,7 @@ Año: 2003
 Juego más caro: Day of Defeat
 Juego más barato: Day of Defeat
 Promedio de precios: 3.000000
-Windows: 100 Mac: 100 Linux: 100
+Windows: 100.000000 Mac: 100.000000 Linux: 100.000000
 Juegos gratis:
  
 
@@ -50,7 +34,7 @@ Año: 2004
 Juego más caro: Unreal Tournament 2004: Editor's Choice Edition
 Juego más barato: Half-Life 2: Deathmatch
 Promedio de precios: 5.730000
-Windows: 100 Mac: 83 Linux: 83
+Windows: 100.000000 Mac: 83.333328 Linux: 83.333328
 Juegos gratis:
  
 
@@ -58,7 +42,7 @@ Año: 2005
 Juego más caro: Sid Meier's Pirates!
 Juego más barato: Half-Life 2: Lost Coast
 Promedio de precios: 3.800000
-Windows: 100 Mac: 40 Linux: 40
+Windows: 100.000000 Mac: 40.000000 Linux: 40.000000
 Juegos gratis:
  
 
@@ -66,7 +50,7 @@ Año: 2006
 Juego más caro: FlatOut 2™
 Juego más barato: The Ship: Single Player
 Promedio de precios: 6.273500
-Windows: 100 Mac: 26 Linux: 16
+Windows: 100.000000 Mac: 26.666668 Linux: 16.666668
 Juegos gratis:
  Zen of Sudoku
 
@@ -75,7 +59,7 @@ Año: 2007
 Juego más caro: Vampire: The Masquerade - Bloodlines
 Juego más barato: Team Fortress 2
 Promedio de precios: 5.722921
-Windows: 100 Mac: 12 Linux: 4
+Windows: 100.000000 Mac: 12.359550 Linux: 4.494382
 Juegos gratis:
  Team Fortress 2
 Peggle Extreme
@@ -85,7 +69,7 @@ Año: 2008
 Juego más caro: Trackmania United Forever
 Juego más barato: RollerCoaster Tycoon® 3: Platinum
 Promedio de precios: 5.994606
-Windows: 100 Mac: 6 Linux: 3
+Windows: 100.000000 Mac: 6.578948 Linux: 3.947368
 Juegos gratis:
  TrackMania Nations Forever
 Zombie Panic! Source
@@ -96,7 +80,7 @@ Año: 2009
 Juego más caro: Resident Evil 5
 Juego más barato: Battlestations Pacific
 Promedio de precios: 5.933628
-Windows: 100 Mac: 22 Linux: 9
+Windows: 100.000000 Mac: 22.033899 Linux: 9.152542
 Juegos gratis:
  Sherlock Holmes: The Mystery of the Mummy
 Dystopia
@@ -110,7 +94,7 @@ Año: 2010
 Juego más caro: F.E.A.R.
 Juego más barato: Alien Swarm
 Promedio de precios: 5.997703
-Windows: 100 Mac: 33 Linux: 21
+Windows: 100.000000 Mac: 33.191490 Linux: 21.276596
 Juegos gratis:
  Alien Swarm
 EVE Online
@@ -121,7 +105,7 @@ Año: 2011
 Juego más caro: "Warhammer 40.000: Space Marine - Anniversary Edition"
 Juego más barato: Bloodline Champions
 Promedio de precios: 7.423031
-Windows: 100 Mac: 21 Linux: 11
+Windows: 100.000000 Mac: 21.212122 Linux: 11.111112
 Juegos gratis:
  Bloodline Champions
 Champions Online
@@ -134,7 +118,7 @@ Año: 2012
 Juego más caro: Stronghold 3 Gold
 Juego más barato: Counter-Strike: Global Offensive
 Promedio de precios: 7.450000
-Windows: 100 Mac: 40 Linux: 31
+Windows: 100.000000 Mac: 40.909092 Linux: 31.818182
 Juegos gratis:
  Counter-Strike: Global Offensive
 Star Trek Online
@@ -145,7 +129,7 @@ Año: 2013
 Juego más caro: X Rebirth
 Juego más barato: Dota 2
 Promedio de precios: 9.668888
-Windows: 100 Mac: 44 Linux: 44
+Windows: 100.000000 Mac: 44.444447 Linux: 44.444447
 Juegos gratis:
  Dota 2
 
@@ -154,7 +138,7 @@ Año: 2014
 Juego más caro: Ultra Street Fighter® IV
 Juego más barato: Blade Kitten
 Promedio de precios: 10.033334
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -162,7 +146,7 @@ Año: 2015
 Juego más caro: Fallout: A Post Nuclear Role Playing Game
 Juego más barato: Fallout: A Post Nuclear Role Playing Game
 Promedio de precios: 6.880000
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -170,7 +154,7 @@ Año: 2016
 Juego más caro: Stronghold Legends: Steam Edition
 Juego más barato: Land It!
 Promedio de precios: 8.130000
-Windows: 100 Mac: 50 Linux: 0
+Windows: 100.000000 Mac: 50.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -178,7 +162,7 @@ Año: 2017
 Juego más caro: Overgrowth
 Juego más barato: Overgrowth
 Promedio de precios: 9.620000
-Windows: 100 Mac: 100 Linux: 100
+Windows: 100.000000 Mac: 100.000000 Linux: 100.000000
 Juegos gratis:
  
 
@@ -186,7 +170,7 @@ Año: 2018
 Juego más caro: GROUND BRANCH
 Juego más barato: GROUND BRANCH
 Promedio de precios: 9.620000
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -194,7 +178,7 @@ Año: 2019
 Juego más caro: Serious Sam Classic: The First Encounter
 Juego más barato: Serious Sam Classic: The First Encounter
 Promedio de precios: 3.500000
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -202,7 +186,7 @@ Año: 2020
 Juego más caro: Grand Theft Auto IV: The Complete Edition
 Juego más barato: Defense of the Oasis
 Promedio de precios: 9.080000
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -210,7 +194,7 @@ Año: 2021
 Juego más caro: Stubbs the Zombie in Rebel Without a Pulse
 Juego más barato: Second Sight
 Promedio de precios: 8.250000
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 
@@ -218,7 +202,7 @@ Año: 2022
 Juego más caro: Train Simulator Classic
 Juego más barato: Train Simulator Classic
 Promedio de precios: 11.880000
-Windows: 100 Mac: 0 Linux: 0
+Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
  
 

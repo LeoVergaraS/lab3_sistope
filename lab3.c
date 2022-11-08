@@ -16,12 +16,8 @@
 int n = 0;
 pthread_mutex_t lock;
 FILE *archivoEntrada;
-anio *aniosStruct=NULL;
-//anio aniosStruct[25];
+anio *aniosStruct;
 int cantAnios= 0;
-int contadorAnios = 0;
-//char linea[500];
-int contador = 0;
 int chunk = 1;
 float precioMinimo = 0;
 
@@ -70,7 +66,7 @@ int main(int argc, char *argv[]) {
 			precioMinimo = atof(optarg);
 			break;
 
-		//Cantidad de workers
+		//Cantidad de hebras
 		case 'n':
 			if (atoi(optarg) < 1 || !verificarDecimal(optarg)){
 				printf("Error: No se ingreso un numero de workers valido.\n");
@@ -78,7 +74,8 @@ int main(int argc, char *argv[]) {
 			}
 			hebras = atoi(optarg);
 			break;
-
+		
+		// Tamaño de chunk
         case 'c':
 			if (atoi(optarg) < 1 || !verificarDecimal(optarg)){
 				printf("Error: No se ingreso un numero de chunks valido.\n");
@@ -138,7 +135,8 @@ int main(int argc, char *argv[]) {
             printf("Error: No se pudo crear la hebra.\n");
             return 0;
         }
-		//printf("Hebra %d creada\n", p);
+		
+		//Se espera a que termine la hebra
 		if(pthread_join(tid[i], NULL) != 0){
             printf("Error: No se pudo unir la hebra.\n");
             return 0;
@@ -166,6 +164,8 @@ int main(int argc, char *argv[]) {
 
 	// Se escribe el archivo de salida luedo de ordenarlo
 	mergeSort(aniosStruct, 0, cantAnios-1);
+
+	// Se escrive el archivo final
 	escribirArchivo(nombreSalida, anioInicio, bandera);       
 
     // Se libera memoria
