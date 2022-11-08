@@ -3,6 +3,9 @@
         "wait.h": "c",
         "ctype.h": "c",
         "string.h": "c",
-        "otros.h": "c"
+        "otros.h": "c",
+        "unistd.h": "c",
+        "funciones.h": "c",
+        "stdlib.h": "c"
     }
 }
