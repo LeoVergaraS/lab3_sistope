@@ -4,6 +4,7 @@ extern pthread_mutex_t lock;
 extern FILE *archivoEntrada;
 extern int contador;
 extern anio *aniosStruct;
+extern int chunk;
 //extern anio aniosStruct[25];
 extern int cantAnios;
 extern int contadorAnios;
@@ -182,13 +183,15 @@ return aniosFinal;*/
 
 //Posible error en la función por printf de n
 void *funcionHilo(void *arg) {
-    pthread_mutex_lock(&lock);
-    int *chunk = (int *)arg;
+    if(pthread_mutex_lock(&lock) != 0){
+        printf("Error: No se puede bloquear el mutex\n");
+        exit(1);
+    }
     contador++;
     int i = 0;
     char linea[500];
     juego juego;
-    while(i<*chunk && fgets(linea, 500, archivoEntrada) != NULL){
+    while(i<chunk && fgets(linea, 500, archivoEntrada) != NULL){
         /* if(i == *chunk){
             break;
         } */
@@ -203,7 +206,10 @@ void *funcionHilo(void *arg) {
     }
     //printf("i: %d, contador: %d\n", i,contador);
     //funPrint();
-    pthread_mutex_unlock(&lock);    
+    if(pthread_mutex_unlock(&lock) != 0){
+        printf("Error: No se puede desbloquear el mutex\n");
+        exit(1);
+    }
     return NULL;
 }
 
