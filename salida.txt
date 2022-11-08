@@ -1,0 +1,2 @@
+El año con el precio mínimo es 0 con un precio de 0.
+No se encontró un año con el precio mínimo.

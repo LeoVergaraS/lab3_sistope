@@ -12,7 +12,7 @@ typedef struct year{
     int cantidadWindows;
     int cantidadMac;
     int cantidadLinux;
-    char juegosGratis[1000];
+    char juegosGratis[5000];
     int cantidadJuegosGratis;
 } anio;
 

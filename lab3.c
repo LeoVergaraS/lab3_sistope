@@ -13,8 +13,15 @@
 #include "otros.h"
 
 // Variables globales
-
-pthread_t *tid;
+int n = 0;
+pthread_mutex_t lock;
+FILE *archivoEntrada;
+anio *aniosStruct=NULL;
+//anio aniosStruct[25];
+int cantAnios= 0;
+int contadorAnios = 0;
+//char linea[500];
+int contador = 0;
 
 int main(int argc, char *argv[]) {
     // Variables iniciales
@@ -103,7 +110,9 @@ int main(int argc, char *argv[]) {
 	}
 
     // Se asigna memoria al arreglo de los id de las hebras
-    tid = (pthread_t *)malloc(sizeof(pthread_t) * hebras);
+    pthread_t *tid = (pthread_t *)malloc(sizeof(pthread_t)*hebras);
+	aniosStruct = (anio *)malloc(sizeof(anio) * 0);
+	
 
     // Se abre el archivo de entrada
     archivoEntrada = fopen(nombreEntrada, "r");
@@ -119,20 +128,26 @@ int main(int argc, char *argv[]) {
     }
 
     // Se crean las hebras
+	
     i = 0;
+	int p=0;
     while(!feof(archivoEntrada)){
+		if(i==hebras){
+			i = 0;
+		}
         if(pthread_create(&(tid[i]), NULL, funcionHilo, (void*)&chunk) != 0){
             printf("Error: No se pudo crear la hebra.\n");
             return 0;
         }
-
+		//printf("Hebra %d creada\n", p);
+		i++;
+		p++;
     }
 
-    
     // Se espera a que terminen las hebras
     for(i = 0; i < hebras; i++){
         if(pthread_join(tid[i], NULL) != 0){
-            printf("Error: No se pudo unir la hebra.\n");
+            printf("Error %d: No se pudo unir la hebra.\n", i);
             return 0;
         }
     }
@@ -143,10 +158,16 @@ int main(int argc, char *argv[]) {
     // Se cierra el lock
     pthread_mutex_destroy(&lock);
 
-	escribirArchivo(nombreSalida, anioInicio, precioMinimo, bandera);       
+	mergeSort(aniosStruct, 0, cantAnios-1);
+
+	 for(int i=0;i<cantAnios;++i){
+		printf("Anio:%d Cantidad Juegos:%d Nombre Caro:%s Precio Caro:%f\n Nombre Barato:%s Precio Barato:%f Suma Precios:%f\n Cantidad Windows:%d Cantidad Mac:%d Cantidad Linux:%d\n Cantidad Juegos Gratis:%d Juegos Gratis:%s\n\n\n", aniosStruct[i].anio, aniosStruct[i].cantidadJuegos, aniosStruct[i].nombreCaro, aniosStruct[i].caro, aniosStruct[i].nombreBarato, aniosStruct[i].barato, aniosStruct[i].sumaPrecios, aniosStruct[i].cantidadWindows, aniosStruct[i].cantidadMac, aniosStruct[i].cantidadLinux, aniosStruct[i].cantidadJuegosGratis, aniosStruct[i].juegosGratis);
+	}
+
+	printf("\n\n%d\n",contadorAnios);
+	//escribirArchivo(nombreSalida, anioInicio, precioMinimo, bandera);       
 
     // Se libera memoria
     free(tid);
-    free(anios);
     return 0;
 }
