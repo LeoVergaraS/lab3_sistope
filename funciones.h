@@ -9,11 +9,16 @@
 #include "anio.h"
 #include "juego.h"
 
-int *agregarAnios(int *anios, int anio, int *n);
-void *funcionHilo(void *arg);
-void escribirArchivo(char * nombreSalida, int anioInicio, int bandera);
+anio *agregarAniosFinales(anio anioAgregado);
 int transformarStringABool(char *cadena);
 int transformarStringABoolLinus(char *cadena);
 juego lineaToJuego(char *linea);
+int juegoInAnios(juego juego);
+anio crearAnioVacio(juego juego);
+anio crearAnio(juego juego);
+void juntarAnios(juego juego);
+void *funcionHilo(void *arg);
+int buscarIndice(int anioInicio);
+void escribirArchivo(char * nombreSalida, int anioInicio, int bandera);
 void merge(anio* aniosFinal,int inicio,int medio,int fin);
 void mergeSort(anio* aniosFinal, int ini, int fin);

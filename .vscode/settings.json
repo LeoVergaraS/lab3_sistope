@@ -6,6 +6,7 @@
         "otros.h": "c",
         "unistd.h": "c",
         "funciones.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "pthread.h": "c"
     }
 }

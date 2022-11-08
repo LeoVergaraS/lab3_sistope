@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 		//Cantidad de hebras
 		case 'n':
 			if (atoi(optarg) < 1 || !verificarDecimal(optarg)){
-				printf("Error: No se ingreso un numero de workers valido.\n");
+				printf("Error: No se ingreso un numero de hebras valido.\n");
 				return 0;
 			}
 			hebras = atoi(optarg);
