@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
 		if(i==hebras){
 			i = 0;
 		}
-        if(pthread_create(&(tid[i]), NULL, funcionHilo, (void*)&chunk) != 0){
+        if(pthread_create(&(tid[i]), NULL, &funcionHilo, (void*)&chunk) != 0){
             printf("Error: No se pudo crear la hebra.\n");
             return 0;
         }
@@ -160,14 +160,15 @@ int main(int argc, char *argv[]) {
 
 	mergeSort(aniosStruct, 0, cantAnios-1);
 
-	 for(int i=0;i<cantAnios;++i){
-		printf("Anio:%d Cantidad Juegos:%d Nombre Caro:%s Precio Caro:%f\n Nombre Barato:%s Precio Barato:%f Suma Precios:%f\n Cantidad Windows:%d Cantidad Mac:%d Cantidad Linux:%d\n Cantidad Juegos Gratis:%d Juegos Gratis:%s\n\n\n", aniosStruct[i].anio, aniosStruct[i].cantidadJuegos, aniosStruct[i].nombreCaro, aniosStruct[i].caro, aniosStruct[i].nombreBarato, aniosStruct[i].barato, aniosStruct[i].sumaPrecios, aniosStruct[i].cantidadWindows, aniosStruct[i].cantidadMac, aniosStruct[i].cantidadLinux, aniosStruct[i].cantidadJuegosGratis, aniosStruct[i].juegosGratis);
-	}
+	// for(int i=0;i<cantAnios;++i){
+	// 	printf("Anio:%d Cantidad Juegos:%d Nombre Caro:%s Precio Caro:%f\n Nombre Barato:%s Precio Barato:%f Suma Precios:%f\n Cantidad Windows:%d Cantidad Mac:%d Cantidad Linux:%d\n Cantidad Juegos Gratis:%d Juegos Gratis:%s\n\n\n", aniosStruct[i].anio, aniosStruct[i].cantidadJuegos, aniosStruct[i].nombreCaro, aniosStruct[i].caro, aniosStruct[i].nombreBarato, aniosStruct[i].barato, aniosStruct[i].sumaPrecios, aniosStruct[i].cantidadWindows, aniosStruct[i].cantidadMac, aniosStruct[i].cantidadLinux, aniosStruct[i].cantidadJuegosGratis, aniosStruct[i].juegosGratis);
+	// }
 
-	printf("\n\n%d\n",contadorAnios);
-	//escribirArchivo(nombreSalida, anioInicio, precioMinimo, bandera);       
+	//printf("\n\n%d\n",contadorAnios);
+	escribirArchivo(nombreSalida, anioInicio, bandera);       
 
     // Se libera memoria
     free(tid);
+	free(aniosStruct);
     return 0;
 }

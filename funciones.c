@@ -79,9 +79,7 @@ juego lineaToJuego(char *linea){
     juego.win = transformarStringABool(win);
     juego.mac = transformarStringABool(mac);
     juego.lin = transformarStringABoolLinus(lin);
-    if(juego.fecha == 2022){
-            printf("Entra aqui");
-    }    
+  
     return juego;
 }
 
@@ -110,7 +108,7 @@ anio crearAnio(juego juego){
     if(juego.gratis == 1){
         nuevoAnio.cantidadJuegosGratis=1;
         strcpy(nuevoAnio.juegosGratis, juego.nombre);
-        strcat(nuevoAnio.juegosGratis, ",");
+        strcat(nuevoAnio.juegosGratis, "\n");
         return nuevoAnio;
     }
     strcpy(nuevoAnio.juegosGratis, "");
@@ -146,7 +144,7 @@ void juntarAnios(juego juego){
         if(juego.gratis == 1){
             aniosStruct[k].cantidadJuegosGratis++;
             strcat(aniosStruct[k].juegosGratis, juego.nombre);
-            strcat(aniosStruct[k].juegosGratis, ",");
+            strcat(aniosStruct[k].juegosGratis, "\n");
         }
     }
     /* //Si el año ya está dentro del array, se mezclan los datos para que concuerden con lo solicitado
@@ -209,20 +207,41 @@ void *funcionHilo(void *arg) {
     return NULL;
 }
 
+int buscarIndice(int anioInicio){
+    if(anioInicio <= aniosStruct[0].anio){return 0;}
+    for(int i=0;i<cantAnios;i++){
+        if(anioInicio == aniosStruct[i].anio){
+            return i;
+        }
+    }
+    return -1;
+}
 
-
-void escribirArchivo(char * nombreSalida, int anioInicio, int precioMinimo, int bandera){
-    FILE *archivoSalida;
-    archivoSalida = fopen(nombreSalida, "w");
+void escribirArchivo(char * nombreSalida, int anioInicio, int bandera){
+    char lineasAEscribir[100000]="";
+    char temporal[5000];
+    FILE *archivoSalida = fopen(nombreSalida, "w");
     if(archivoSalida == NULL){
         printf("Error: No se pudo abrir el archivo de salida.\n");
         return;
     }
-    if(bandera == 1){
-        printf("El año con el precio mínimo es %d con un precio de %d.\n", anioInicio, precioMinimo);
+    int indice = buscarIndice(anioInicio);
+    if(indice == -1){
+        printf("No se encontro el anio %d en el archivo", anioInicio);
+        return;
     }
-    fprintf(archivoSalida, "El año con el precio mínimo es %d con un precio de %d.\n", anioInicio, precioMinimo);
-    fprintf(archivoSalida, "No se encontró un año con el precio mínimo.\n");
+    for(int i=indice;i<cantAnios;i++){
+        sprintf(temporal, "Año: %d\nJuego más caro: %s\nJuego más barato: %s\nPromedio de precios: %f\nWindows: %d Mac: %d Linux: %d\nJuegos gratis:\n %s\n\n",
+        aniosStruct[i].anio, aniosStruct[i].nombreCaro, aniosStruct[i].nombreBarato, aniosStruct[i].sumaPrecios/aniosStruct[i].cantidadJuegos,
+        (aniosStruct[i].cantidadWindows*100)/aniosStruct[i].cantidadJuegos, (aniosStruct[i].cantidadMac*100)/aniosStruct[i].cantidadJuegos, 
+        (aniosStruct[i].cantidadLinux*100)/aniosStruct[i].cantidadJuegos, aniosStruct[i].juegosGratis);
+        strcat(lineasAEscribir, temporal);
+    }
+    if(bandera == 1){
+        printf("%s", lineasAEscribir);
+    }
+
+    fprintf(archivoSalida,"%s",lineasAEscribir);
     fclose(archivoSalida);
 }
 
