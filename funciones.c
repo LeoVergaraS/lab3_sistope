@@ -263,6 +263,9 @@ void escribirArchivo(char * nombreSalida, int anioInicio, int bandera){
             aniosStruct[i].cantidadJuegos = 1;
             aniosStruct[i].barato = 0;
         }
+        if(aniosStruct[i].cantidadJuegosGratis == 0){
+            strcpy(aniosStruct[i].juegosGratis, "No tiene");
+        }
         sprintf(temporal, "Año: %d\nJuego más caro: %s\nJuego más barato: %s\nPromedio de precios: %f\nWindows: %f Mac: %f Linux: %f\nJuegos gratis:\n%s\n\n",
         aniosStruct[i].anio, aniosStruct[i].nombreCaro, aniosStruct[i].nombreBarato, aniosStruct[i].sumaPrecios/aniosStruct[i].cantidadJuegos,
         ((float)aniosStruct[i].cantidadWindows/(float)aniosStruct[i].cantidadJuegos)*100, ((float)aniosStruct[i].cantidadMac/(float)aniosStruct[i].cantidadJuegos)*100, 

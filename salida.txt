@@ -13,7 +13,7 @@ Juego más barato: Half-Life
 Promedio de precios: 5.500000
 Windows: 100.000000 Mac: 100.000000 Linux: 100.000000
 Juegos gratis:
-
+No tiene
 
 Año: 1999
 Juego más caro: Team Fortress Classic
@@ -21,7 +21,7 @@ Juego más barato: Legacy of Kain: Soul Reaver
 Promedio de precios: 2.000000
 Windows: 100.000000 Mac: 66.666672 Linux: 66.666672
 Juegos gratis:
-
+No tiene
 
 Año: 2000
 Juego más caro: Counter-Strike
@@ -29,7 +29,7 @@ Juego más barato: Ricochet
 Promedio de precios: 4.250000
 Windows: 100.000000 Mac: 100.000000 Linux: 100.000000
 Juegos gratis:
-
+No tiene
 
 Año: 2001
 Juego más caro: Geneforge 1
@@ -37,7 +37,7 @@ Juego más barato: Deathmatch Classic
 Promedio de precios: 6.190000
 Windows: 100.000000 Mac: 50.000000 Linux: 50.000000
 Juegos gratis:
-
+No tiene
 
 Año: 2002
 Juego más caro: Mafia
@@ -45,7 +45,7 @@ Juego más barato: Mafia
 Promedio de precios: 12.490000
 Windows: 100.000000 Mac: 0.000000 Linux: 0.000000
 Juegos gratis:
-
+No tiene
 
 Año: 2003
 Juego más caro: Geneforge 2
@@ -53,7 +53,7 @@ Juego más barato: Day of Defeat
 Promedio de precios: 6.626667
 Windows: 100.000000 Mac: 66.666672 Linux: 33.333336
 Juegos gratis:
-
+No tiene
 
 Año: 2004
 Juego más caro: Unreal Tournament 2004: Editor's Choice Edition
@@ -61,7 +61,7 @@ Juego más barato: Half-Life 2: Deathmatch
 Promedio de precios: 5.730000
 Windows: 100.000000 Mac: 83.333328 Linux: 83.333328
 Juegos gratis:
-
+No tiene
 
 Año: 2005
 Juego más caro: Geneforge 3
@@ -69,7 +69,7 @@ Juego más barato: Half-Life 2: Lost Coast
 Promedio de precios: 5.146667
 Windows: 100.000000 Mac: 33.333336 Linux: 33.333336
 Juegos gratis:
-
+No tiene
 
 Año: 2006
 Juego más caro: FlatOut 2™
@@ -316,7 +316,7 @@ Juego más barato: Oncoming Death Steam Edition
 Promedio de precios: 8.721666
 Windows: 100.000000 Mac: 38.888889 Linux: 22.222223
 Juegos gratis:
-
+No tiene
 
 Año: 2020
 Juego más caro: Mount & Blade II: Bannerlord
@@ -324,7 +324,7 @@ Juego más barato: Defense of the Oasis
 Promedio de precios: 13.123636
 Windows: 100.000000 Mac: 9.090909 Linux: 18.181818
 Juegos gratis:
-
+No tiene
 
 Año: 2021
 Juego más caro: Edge Of Eternity
@@ -332,7 +332,7 @@ Juego más barato: Second Sight
 Promedio de precios: 10.417778
 Windows: 100.000000 Mac: 22.222223 Linux: 33.333336
 Juegos gratis:
-
+No tiene
 
 Año: 2022
 Juego más caro: GearCity
@@ -340,5 +340,5 @@ Juego más barato: Re-Volt
 Promedio de precios: 9.253333
 Windows: 100.000000 Mac: 33.333336 Linux: 33.333336
 Juegos gratis:
-
+No tiene
 
