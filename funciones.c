@@ -202,24 +202,24 @@ void juntarAnios(juego juego){
 //Entrada: nada, se trabaja con variables globales
 //Salida: nada, se trabaja con variables globales
 void *funcionHilo(void *arg) {
-    // Se bloquea el lock
-    if(pthread_mutex_lock(&lock) != 0){
-        printf("Error: No se puede bloquear el mutex\n");
-        exit(1);
-    }
-    // Variables para los calculos
-    int i = 0;
-    char linea[500];
+    int i;
     juego juego;
-    while(i<chunk && fgets(linea, 500, archivoEntrada) != NULL){
-        juego = lineaToJuego(linea);
-        juntarAnios(juego);
-        i++; 
-    }
-    // Se desbloquea el lock
-    if(pthread_mutex_unlock(&lock) != 0){
-        printf("Error: No se puede desbloquear el mutex\n");
-        exit(1);
+    //Se lee el archivo
+    while(1){
+        i=0;
+        char linea[500];
+        //Se entra a la sección crítica
+        pthread_mutex_lock(&lock);
+        while(i<chunk && fgets(linea, 500, archivoEntrada)!=NULL){
+            juego = lineaToJuego(linea);
+            juntarAnios(juego);
+            i++;
+        }
+        //Se sale de la sección crítica
+        pthread_mutex_unlock(&lock);
+        if (feof(archivoEntrada)!=0){   
+            break;
+        }
     }
     return NULL;
 }
@@ -263,7 +263,7 @@ void escribirArchivo(char * nombreSalida, int anioInicio, int bandera){
             aniosStruct[i].cantidadJuegos = 1;
             aniosStruct[i].barato = 0;
         }
-        sprintf(temporal, "Año: %d\nJuego más caro: %s\nJuego más barato: %s\nPromedio de precios: %f\nWindows: %f Mac: %f Linux: %f\nJuegos gratis:\n %s\n\n",
+        sprintf(temporal, "Año: %d\nJuego más caro: %s\nJuego más barato: %s\nPromedio de precios: %f\nWindows: %f Mac: %f Linux: %f\nJuegos gratis:\n%s\n\n",
         aniosStruct[i].anio, aniosStruct[i].nombreCaro, aniosStruct[i].nombreBarato, aniosStruct[i].sumaPrecios/aniosStruct[i].cantidadJuegos,
         ((float)aniosStruct[i].cantidadWindows/(float)aniosStruct[i].cantidadJuegos)*100, ((float)aniosStruct[i].cantidadMac/(float)aniosStruct[i].cantidadJuegos)*100, 
         ((float)aniosStruct[i].cantidadLinux/(float)aniosStruct[i].cantidadJuegos)*100, aniosStruct[i].juegosGratis);

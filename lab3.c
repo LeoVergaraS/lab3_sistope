@@ -126,7 +126,15 @@ int main(int argc, char *argv[]) {
     // Se crean las hebras
 	
     i = 0;
-	int p=0;
+	while(i < hebras){
+		if(pthread_create(&(tid[i]), NULL, &funcionHilo, NULL) != 0){
+            printf("Error: No se pudo crear la hebra.\n");
+            return 0;
+        }
+		i++;
+	}
+
+	/* int p=0;
     while(!feof(archivoEntrada)){
 		if(i==hebras){
 			i = 0;
@@ -137,21 +145,21 @@ int main(int argc, char *argv[]) {
         }
 		
 		//Se espera a que termine la hebra
-		if(pthread_join(tid[i], NULL) != 0){
+		 if(pthread_join(tid[i], NULL) != 0){
             printf("Error: No se pudo unir la hebra.\n");
             return 0;
         }
 		i++;
 		p++;
-    }
+    } */
 
     // Se espera a que terminen las hebras
-    /* for(i = 0; i < hebras; i++){
+    for(i = 0; i < hebras; i++){
         if(pthread_join(tid[i], NULL) != 0){
             printf("Error: No se pudo unir la hebra.\n");
             return 0;
         }
-    } */
+    }
 
     // Se cierra el archivo de entrada
     fclose(archivoEntrada);
