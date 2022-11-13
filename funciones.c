@@ -266,8 +266,8 @@ void escribirArchivo(char * nombreSalida, int anioInicio, int bandera){
         if(aniosStruct[i].cantidadJuegosGratis == 0){
             strcpy(aniosStruct[i].juegosGratis, "No tiene");
         }
-        sprintf(temporal, "Año: %d\nJuego más caro: %s\nJuego más barato: %s\nPromedio de precios: %f\nWindows: %f Mac: %f Linux: %f\nJuegos gratis:\n%s\n\n",
-        aniosStruct[i].anio, aniosStruct[i].nombreCaro, aniosStruct[i].nombreBarato, aniosStruct[i].sumaPrecios/aniosStruct[i].cantidadJuegos,
+        sprintf(temporal, "Año: %d\nJuego más caro: %s %f\nJuego más barato: %s %f\nPromedio de precios: %f\nWindows: %f Mac: %f Linux: %f\nJuegos gratis:\n%s\n\n",
+        aniosStruct[i].anio, aniosStruct[i].nombreCaro, aniosStruct[i].caro, aniosStruct[i].nombreBarato, aniosStruct[i].barato, aniosStruct[i].sumaPrecios/aniosStruct[i].cantidadJuegos,
         ((float)aniosStruct[i].cantidadWindows/(float)aniosStruct[i].cantidadJuegos)*100, ((float)aniosStruct[i].cantidadMac/(float)aniosStruct[i].cantidadJuegos)*100, 
         ((float)aniosStruct[i].cantidadLinux/(float)aniosStruct[i].cantidadJuegos)*100, aniosStruct[i].juegosGratis);
         strcat(lineasAEscribir, temporal);
